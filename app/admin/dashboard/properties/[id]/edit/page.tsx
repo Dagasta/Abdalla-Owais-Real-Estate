@@ -13,6 +13,8 @@ export default function EditPropertyPage() {
     const propertyId = params.id as string
     const [loading, setLoading] = useState(false)
     const [fetching, setFetching] = useState(true)
+    const [uploadingImages, setUploadingImages] = useState(false)
+    const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([])
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -69,6 +71,53 @@ export default function EditPropertyPage() {
             ...prev,
             [e.target.name]: e.target.value
         }))
+    }
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files
+        if (!files || files.length === 0) return
+
+        setUploadingImages(true)
+        const uploadedUrls: string[] = []
+
+        try {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i]
+                const fileExt = file.name.split('.').pop()
+                const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`
+                const filePath = `properties/${fileName}`
+
+                const { data, error } = await supabase.storage
+                    .from('property-images')
+                    .upload(filePath, file)
+
+                if (error) {
+                    console.error('Upload error:', error)
+                    alert(`Failed to upload ${file.name}`)
+                    continue
+                }
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from('property-images')
+                    .getPublicUrl(filePath)
+
+                uploadedUrls.push(publicUrl)
+            }
+
+            setUploadedImageUrls(prev => [...prev, ...uploadedUrls])
+            const currentImages = formData.images ? formData.images.split('\n').filter(url => url.trim()) : []
+            const allImages = [...currentImages, ...uploadedUrls]
+            setFormData(prev => ({
+                ...prev,
+                images: allImages.join('\n')
+            }))
+
+            alert(`Successfully uploaded ${uploadedUrls.length} image(s)!`)
+        } catch (error: any) {
+            alert('Error uploading images: ' + error.message)
+        } finally {
+            setUploadingImages(false)
+        }
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -252,7 +301,40 @@ export default function EditPropertyPage() {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="images" className="form-label">Image URLs (one per line) *</label>
+                    <label htmlFor="images" className="form-label">Property Images *</label>
+
+                    {/* File Upload Button */}
+                    <div style={{ marginBottom: '1rem' }}>
+                        <input
+                            type="file"
+                            id="imageFiles"
+                            accept="image/*"
+                            multiple
+                            onChange={handleImageUpload}
+                            style={{ display: 'none' }}
+                        />
+                        <label
+                            htmlFor="imageFiles"
+                            className="btn btn-outline"
+                            style={{
+                                cursor: uploadingImages ? 'not-allowed' : 'pointer',
+                                opacity: uploadingImages ? 0.6 : 1,
+                                display: 'inline-block'
+                            }}
+                        >
+                            {uploadingImages ? 'Uploading...' : '📁 Upload Images from Computer'}
+                        </label>
+                        {uploadedImageUrls.length > 0 && (
+                            <small style={{ marginLeft: '1rem', color: 'var(--success)' }}>
+                                ✓ {uploadedImageUrls.length} image(s) uploaded
+                            </small>
+                        )}
+                    </div>
+
+                    {/* Manual URL Input */}
+                    <label style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>
+                        Or paste image URLs (one per line):
+                    </label>
                     <textarea
                         id="images"
                         name="images"
@@ -264,7 +346,7 @@ export default function EditPropertyPage() {
                         placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
                     />
                     <small style={{ color: 'var(--text-muted)', marginTop: '0.5rem', display: 'block' }}>
-                        Add one image URL per line. You can use free image hosting like imgur.com or upload to Supabase Storage.
+                        Upload images from your computer or paste URLs. At least one image is required.
                     </small>
                 </div>
 
