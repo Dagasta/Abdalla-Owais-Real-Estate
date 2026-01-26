@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-server'
 import { sendInquiryEmail } from '@/lib/email'
 import { inquirySchema } from '@/lib/validations'
 
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
         const validatedData = inquirySchema.parse(body)
 
         // Insert inquiry into database
-        const { data: inquiry, error: dbError } = await supabase
+        const { data: inquiry, error: dbError } = await supabaseAdmin
             .from('inquiries')
             .insert([validatedData])
             .select()
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
         // Get property title if property_id is provided
         let propertyTitle = undefined
         if (validatedData.property_id) {
-            const { data: property } = await supabase
+            const { data: property } = await supabaseAdmin
                 .from('properties')
                 .select('title')
                 .eq('id', validatedData.property_id)
