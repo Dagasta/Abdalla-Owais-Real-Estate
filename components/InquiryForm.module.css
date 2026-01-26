@@ -1,0 +1,23 @@
+.form {
+    width: 100%;
+}
+
+.successMessage {
+    padding: 1rem;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: var(--radius-md);
+    color: #155724;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.errorMessage {
+    padding: 1rem;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--radius-md);
+    color: #721c24;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
