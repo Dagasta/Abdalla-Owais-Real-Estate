@@ -58,6 +58,14 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
     )
     const whatsappUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${whatsappMessage}`
 
+    // Validate image URLs
+    const isValidUrl = (url: string) => {
+        return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')
+    }
+
+    const validImages = property.images?.filter((img: string) => isValidUrl(img)) || []
+    const primaryImage = validImages.length > 0 ? validImages[0] : '/images/placeholder-property.jpg'
+
     return (
         <>
             <Header />
@@ -72,7 +80,7 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
                         <div className={styles.imagesSection}>
                             <div className={styles.mainImage}>
                                 <Image
-                                    src={property.images[0] || '/images/placeholder-property.jpg'}
+                                    src={primaryImage}
                                     alt={property.title}
                                     fill
                                     sizes="(max-width: 768px) 100vw, 60vw"
@@ -84,9 +92,9 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
                                 </div>
                             </div>
 
-                            {property.images.length > 1 && (
+                            {validImages.length > 1 && (
                                 <div className={styles.thumbnails}>
-                                    {property.images.slice(1, 5).map((image, index) => (
+                                    {validImages.slice(1, 5).map((image: string, index: number) => (
                                         <div key={index} className={styles.thumbnail}>
                                             <Image
                                                 src={image}
@@ -149,7 +157,7 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
                                 <div className={styles.amenities}>
                                     <h2>Amenities</h2>
                                     <ul>
-                                        {property.amenities.map((amenity, index) => (
+                                        {property.amenities.map((amenity: string, index: number) => (
                                             <li key={index}>✓ {amenity}</li>
                                         ))}
                                     </ul>

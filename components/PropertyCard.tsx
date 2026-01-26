@@ -19,7 +19,15 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         }).format(price)
     }
 
-    const primaryImage = property.images[0] || '/images/placeholder-property.jpg'
+
+    // Validate image URL
+    const isValidUrl = (url: string) => {
+        return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')
+    }
+
+    const primaryImage = property.images && property.images.length > 0 && isValidUrl(property.images[0])
+        ? property.images[0]
+        : '/images/placeholder-property.jpg'
 
     return (
         <Link href={`/properties/${property.id}`} className={styles.card}>
