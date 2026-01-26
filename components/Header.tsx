@@ -19,8 +19,8 @@ export default function Header() {
                         <Image
                             src="/images/logo.png"
                             alt="Abdalla Alowais Real Estate"
-                            width={180}
-                            height={60}
+                            width={240}
+                            height={80}
                             priority
                         />
                     </Link>
