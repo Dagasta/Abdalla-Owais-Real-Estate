@@ -50,7 +50,8 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
             })
 
             if (!response.ok) {
-                throw new Error('Failed to submit inquiry')
+                const data = await response.json()
+                throw new Error(data.error || 'Failed to submit inquiry')
             }
 
             setSuccess(true)
@@ -61,7 +62,13 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
                 message: '',
             })
         } catch (err: any) {
-            setError(err.message || 'Something went wrong. Please try again.')
+            // Handle Zod validation errors
+            if (err.errors && Array.isArray(err.errors)) {
+                const firstError = err.errors[0]
+                setError(firstError.message || 'Please check your input and try again.')
+            } else {
+                setError(err.message || 'Something went wrong. Please try again.')
+            }
         } finally {
             setLoading(false)
         }
