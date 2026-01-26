@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import styles from './Header.module.css'
@@ -15,8 +16,13 @@ export default function Header() {
             <div className="container">
                 <nav className={styles.nav}>
                     <Link href="/" className={styles.logo}>
-                        <span className={styles.logoText}>Abdalla Alowais</span>
-                        <span className={styles.logoSubtext}>Real Estate</span>
+                        <Image
+                            src="/images/logo.png"
+                            alt="Abdalla Alowais Real Estate"
+                            width={180}
+                            height={60}
+                            priority
+                        />
                     </Link>
 
                     {/* Desktop Menu */}
@@ -26,11 +32,6 @@ export default function Header() {
                         <li><Link href="/properties?type=buy" onClick={toggleMenu}>Buy</Link></li>
                         <li><Link href="/properties?type=rent" onClick={toggleMenu}>Rent</Link></li>
                         <li><Link href="/contact" onClick={toggleMenu}>Contact</Link></li>
-                        <li>
-                            <Link href="/admin/login" className={styles.adminLink} onClick={toggleMenu}>
-                                Admin
-                            </Link>
-                        </li>
                     </ul>
 
                     {/* Mobile Menu Toggle */}
