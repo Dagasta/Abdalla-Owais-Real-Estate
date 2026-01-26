@@ -266,7 +266,7 @@ export default function NewPropertyPage() {
                         <input
                             type="file"
                             id="imageFiles"
-                            accept="image/*"
+                            accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
                             multiple
                             onChange={handleImageUpload}
                             style={{ display: 'none' }}
