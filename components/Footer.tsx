@@ -9,6 +9,7 @@ export default function Footer() {
 
     return (
         <footer className={styles.footer}>
+            <div className={styles.topBorder}></div>
             <div className="container">
                 <div className={styles.footerContent}>
                     {/* Company Info */}
@@ -19,16 +20,16 @@ export default function Footer() {
                             We help you find your dream home or investment opportunity.
                         </p>
                         <div className={styles.socialLinks}>
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={styles.socialLink}>
                                 <FaFacebook />
                             </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={styles.socialLink}>
                                 <FaInstagram />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={styles.socialLink}>
                                 <FaLinkedin />
                             </a>
-                            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className={styles.socialLink}>
                                 <FaWhatsapp />
                             </a>
                         </div>
@@ -50,23 +51,23 @@ export default function Footer() {
                     <div className={styles.footerSection}>
                         <h3 className={styles.footerHeading}>Contact Us</h3>
                         <ul className={styles.contactInfo}>
-                            <li>
+                            <li className={styles.contactItem}>
                                 <FaMapMarkerAlt />
                                 <span>Sharjah, United Arab Emirates</span>
                             </li>
-                            <li>
+                            <li className={styles.contactItem}>
                                 <FaPhone />
                                 <a href={`tel:${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}>
-                                    +971 XX XXX XXXX
+                                    +971 50 659 3339
                                 </a>
                             </li>
-                            <li>
+                            <li className={styles.contactItem}>
                                 <FaEnvelope />
-                                <a href="mailto:info@abdallaowais.com">
-                                    info@abdallaowais.com
+                                <a href="mailto:aalowaisrealestate@gmail.com">
+                                    aalowaisrealestate@gmail.com
                                 </a>
                             </li>
-                            <li>
+                            <li className={styles.contactItem}>
                                 <FaWhatsapp />
                                 <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
                                     WhatsApp Us
