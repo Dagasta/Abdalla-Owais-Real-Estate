@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase-server'
 import { sendInquiryEmail } from '@/lib/email'
+import { sendWhatsAppNotification } from '@/lib/whatsapp'
 import { inquirySchema } from '@/lib/validations'
 
 export async function POST(request: NextRequest) {
@@ -44,6 +45,20 @@ export async function POST(request: NextRequest) {
             phone: validatedData.phone,
             message: validatedData.message,
             propertyTitle,
+        })
+
+        // Send WhatsApp notification (NEW!)
+        await sendWhatsAppNotification({
+            customerName: validatedData.name,
+            customerPhone: validatedData.phone,
+            customerEmail: validatedData.email,
+            propertyTitle,
+            message: validatedData.message,
+            timestamp: new Date().toLocaleString('en-AE', {
+                timeZone: 'Asia/Dubai',
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            })
         })
 
         return NextResponse.json({ success: true, data: inquiry })

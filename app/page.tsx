@@ -8,7 +8,8 @@ import { supabase } from '@/lib/supabase'
 import { FaSearch, FaHome, FaHandshake, FaAward, FaUsers } from 'react-icons/fa'
 import styles from './page.module.css'
 
-export const revalidate = 60 // Revalidate every 60 seconds
+export const revalidate = 0 // Always fetch fresh data
+export const dynamic = 'force-dynamic' // Disable static generation
 
 async function getFeaturedProperties() {
     const { data } = await supabase
