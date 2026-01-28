@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
             .order('created_at', { ascending: false })
 
         // Apply filters
-        if (type && (type === 'buy' || type === 'rent')) {
+        if (type && (type === 'buy' || type === 'rent' || type === 'manage')) {
             query = query.eq('type', type)
         }
 

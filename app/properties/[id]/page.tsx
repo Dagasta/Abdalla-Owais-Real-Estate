@@ -88,7 +88,7 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
                                     priority
                                 />
                                 <div className={styles.typeBadge}>
-                                    {property.type === 'buy' ? 'For Sale' : 'For Rent'}
+                                    {property.type === 'buy' ? 'For Sale' : property.type === 'rent' ? 'For Rent' : 'For Managing'}
                                 </div>
                             </div>
 

@@ -12,7 +12,7 @@ export interface Property {
     description: string
     price: number
     location: string
-    type: 'buy' | 'rent'
+    type: 'buy' | 'rent' | 'manage'
     bedrooms: number
     bathrooms: number
     area: number

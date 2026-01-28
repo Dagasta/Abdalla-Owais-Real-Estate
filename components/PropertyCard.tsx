@@ -40,7 +40,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     className={styles.image}
                 />
                 <div className={styles.badge}>
-                    {property.type === 'buy' ? 'For Sale' : 'For Rent'}
+                    {property.type === 'buy' ? 'For Sale' : property.type === 'rent' ? 'For Rent' : 'For Managing'}
                 </div>
                 {property.status !== 'available' && (
                     <div className={styles.statusBadge}>

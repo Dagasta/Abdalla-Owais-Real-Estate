@@ -17,7 +17,7 @@ export default function NewPropertyPage() {
         description: '',
         price: '',
         location: '',
-        type: 'buy' as 'buy' | 'rent',
+        type: 'buy' as 'buy' | 'rent' | 'manage',
         bedrooms: '',
         bathrooms: '',
         area: '',
@@ -168,6 +168,7 @@ export default function NewPropertyPage() {
                         >
                             <option value="buy">For Sale</option>
                             <option value="rent">For Rent</option>
+                            <option value="manage">For Managing</option>
                         </select>
                     </div>
 

@@ -135,7 +135,7 @@ export default function PropertiesManagementPage() {
                                         <td>{property.location}</td>
                                         <td>
                                             <span className={styles.badge}>
-                                                {property.type === 'buy' ? 'For Sale' : 'For Rent'}
+                                                {property.type === 'buy' ? 'For Sale' : property.type === 'rent' ? 'For Rent' : 'For Managing'}
                                             </span>
                                         </td>
                                         <td>{formatPrice(property.price)}</td>

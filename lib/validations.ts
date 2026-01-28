@@ -6,7 +6,7 @@ export const propertySchema = z.object({
     description: z.string().min(20, 'Description must be at least 20 characters'),
     price: z.number().positive('Price must be positive'),
     location: z.string().min(3, 'Location is required'),
-    type: z.enum(['buy', 'rent']),
+    type: z.enum(['buy', 'rent', 'manage']),
     bedrooms: z.number().int().min(0),
     bathrooms: z.number().int().min(0),
     area: z.number().positive('Area must be positive'),
