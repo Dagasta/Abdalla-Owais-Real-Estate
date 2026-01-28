@@ -3,27 +3,14 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import PropertyCard from '@/components/PropertyCard'
-import { supabase } from '@/lib/supabase'
+import FeaturedPropertiesClient from '@/components/FeaturedPropertiesClient'
+import Testimonials from '@/components/Testimonials'
 import { FaSearch, FaHome, FaHandshake, FaAward, FaUsers } from 'react-icons/fa'
 import styles from './page.module.css'
 
-export const revalidate = 0 // Always fetch fresh data
-export const dynamic = 'force-dynamic' // Disable static generation
 
-async function getFeaturedProperties() {
-    const { data } = await supabase
-        .from('properties')
-        .select('*')
-        .eq('status', 'available')
-        .order('created_at', { ascending: false })
-        .limit(6)
 
-    return data || []
-}
-
-export default async function HomePage() {
-    const featuredProperties = await getFeaturedProperties()
+export default function HomePage() {
 
     return (
         <>
@@ -99,26 +86,17 @@ export default async function HomePage() {
                             </p>
                         </div>
 
-                        {featuredProperties.length > 0 ? (
-                            <>
-                                <div className="grid grid-3">
-                                    {featuredProperties.map((property) => (
-                                        <PropertyCard key={property.id} property={property} />
-                                    ))}
-                                </div>
-                                <div className={styles.viewAllButton}>
-                                    <Link href="/properties" className="btn btn-primary">
-                                        View All Properties
-                                    </Link>
-                                </div>
-                            </>
-                        ) : (
-                            <div className={styles.noProperties}>
-                                <p>No properties available at the moment. Check back soon!</p>
-                            </div>
-                        )}
+                        <FeaturedPropertiesClient />
+                        <div className={styles.viewAllButton}>
+                            <Link href="/properties" className="btn btn-primary">
+                                View All Properties
+                            </Link>
+                        </div>
                     </div>
                 </section>
+
+                {/* Testimonials Section */}
+                <Testimonials />
 
                 {/* Why Choose Us */}
                 <section className={`section ${styles.whyChooseUs}`}>
