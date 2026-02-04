@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { FaHome, FaEnvelope, FaSignOutAlt, FaPlus } from 'react-icons/fa'
+import { motion } from 'framer-motion'
+import { FaHome, FaEnvelope, FaSignOutAlt, FaPlus, FaTachometerAlt } from 'react-icons/fa'
 import styles from './page.module.css'
 
 export default function AdminDashboardPage() {
@@ -82,7 +83,7 @@ export default function AdminDashboardPage() {
 
                 <nav className={styles.nav}>
                     <Link href="/admin/dashboard" className={styles.navItemActive}>
-                        <FaHome /> Dashboard
+                        <FaTachometerAlt /> Dashboard
                     </Link>
                     <Link href="/admin/dashboard/properties" className={styles.navItem}>
                         <FaHome /> Properties
@@ -110,9 +111,14 @@ export default function AdminDashboardPage() {
                     </Link>
                 </div>
 
-                <div className={styles.statsGrid}>
+                <motion.div
+                    className={styles.statsGrid}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                >
                     <div className={styles.statCard}>
-                        <div className={styles.statIcon} style={{ background: '#3b82f6' }}>
+                        <div className={styles.statIcon} style={{ background: 'var(--gradient-primary)' }}>
                             <FaHome />
                         </div>
                         <div className={styles.statContent}>
@@ -122,7 +128,7 @@ export default function AdminDashboardPage() {
                     </div>
 
                     <div className={styles.statCard}>
-                        <div className={styles.statIcon} style={{ background: '#10b981' }}>
+                        <div className={styles.statIcon} style={{ background: 'var(--gradient-accent)' }}>
                             <FaHome />
                         </div>
                         <div className={styles.statContent}>
@@ -132,7 +138,7 @@ export default function AdminDashboardPage() {
                     </div>
 
                     <div className={styles.statCard}>
-                        <div className={styles.statIcon} style={{ background: '#f59e0b' }}>
+                        <div className={styles.statIcon} style={{ background: 'var(--gradient-secondary)' }}>
                             <FaEnvelope />
                         </div>
                         <div className={styles.statContent}>
@@ -142,7 +148,7 @@ export default function AdminDashboardPage() {
                     </div>
 
                     <div className={styles.statCard}>
-                        <div className={styles.statIcon} style={{ background: '#ef4444' }}>
+                        <div className={styles.statIcon} style={{ background: 'var(--gradient-warm)' }}>
                             <FaEnvelope />
                         </div>
                         <div className={styles.statContent}>
@@ -150,7 +156,7 @@ export default function AdminDashboardPage() {
                             <div className={styles.statLabel}>New Inquiries</div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 <div className={styles.quickActions}>
                     <h2>Quick Actions</h2>

@@ -15,7 +15,7 @@
 
 /* Sidebar */
 .sidebar {
-    width: 260px;
+    width: 280px;
     background: white;
     border-right: 1px solid var(--bg-tertiary);
     display: flex;
@@ -23,6 +23,8 @@
     position: fixed;
     height: 100vh;
     overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+    z-index: 100;
 }
 
 .logo {
@@ -70,7 +72,8 @@
 .navItemActive {
     background: var(--bg-secondary);
     color: var(--primary);
-    border-left: 3px solid var(--primary);
+    border-left: 4px solid var(--primary);
+    background: linear-gradient(to right, rgba(0, 71, 255, 0.05), transparent);
 }
 
 .sidebarFooter {
@@ -133,30 +136,36 @@
 }
 
 .statCard {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
     box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    transition: all var(--transition-base);
+    transition: all var(--transition-bounce);
+    border: 1px solid var(--glass-border);
+    background: white;
 }
 
 .statCard:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary);
 }
 
 .statIcon {
-    width: 60px;
-    height: 60px;
-    border-radius: var(--radius-md);
+    width: 70px;
+    height: 70px;
+    border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.75rem;
+    font-size: 2rem;
+    box-shadow: var(--shadow-lg);
 }
 
 .statContent {
@@ -198,24 +207,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    padding: 2rem;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
+    gap: 1.25rem;
+    padding: 2.5rem;
+    background: white;
+    border-radius: var(--radius-xl);
     text-decoration: none;
     color: var(--text-primary);
     font-weight: 600;
-    transition: all var(--transition-base);
+    transition: all var(--transition-bounce);
+    border: 1px solid var(--bg-tertiary);
 }
 
 .actionCard:hover {
-    background: var(--primary);
+    background: var(--gradient-primary);
     color: white;
-    transform: translateY(-3px);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-glow);
+    border-color: transparent;
 }
 
 .actionCard svg {
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 @media (max-width: 968px) {

@@ -18,10 +18,10 @@
     right: 0;
     bottom: 0;
     background: url('/hero-bg.jpg?v=3') center/cover no-repeat;
-    opacity: 0.75;
+    opacity: 0.6;
     z-index: 0;
-    animation: subtle-zoom 20s ease-in-out infinite alternate;
-    filter: brightness(0.85) contrast(1.1);
+    animation: subtle-zoom 30s ease-in-out infinite alternate;
+    filter: brightness(0.7) contrast(1.1) saturate(1.2);
 }
 
 @keyframes subtle-zoom {
@@ -83,23 +83,23 @@
 .heroContent {
     position: relative;
     z-index: 2;
-    max-width: 1100px;
-    padding: 6rem 2rem;
-    animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
+    max-width: 1000px;
+    padding: 5rem 3rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 .heroTitle {
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(3rem, 7vw, 5rem);
     margin-bottom: 2rem;
     line-height: 1.1;
-    text-shadow: 3px 6px 12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 71, 255, 0.5);
-    font-weight: 900;
-    letter-spacing: -0.03em;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-weight: 800;
+    letter-spacing: -0.04em;
     position: relative;
 }
 
@@ -244,10 +244,10 @@
 .statCard {
     text-align: center;
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, #F8FAFB 0%, white 100%);
+    background: white;
     border-radius: var(--radius-xl);
-    transition: all var(--transition-base);
-    border: 2px solid transparent;
+    transition: all var(--transition-bounce);
+    border: 1px solid var(--bg-tertiary);
     position: relative;
     overflow: hidden;
 }
@@ -266,8 +266,8 @@
 }
 
 .statCard:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: var(--shadow-glow-intense);
+    transform: translateY(-15px);
+    box-shadow: var(--shadow-2xl), var(--shadow-glow);
     border-color: var(--primary);
 }
 
@@ -394,8 +394,8 @@
     background: white;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
-    transition: all var(--transition-base);
-    border: 2px solid transparent;
+    transition: all var(--transition-bounce);
+    border: 1px solid var(--bg-tertiary);
     position: relative;
     z-index: 1;
 }
@@ -415,8 +415,8 @@
 }
 
 .featureCard:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: var(--shadow-glow-intense);
+    transform: translateY(-15px);
+    box-shadow: var(--shadow-2xl), var(--shadow-glow);
     border-color: var(--primary);
 }
 
