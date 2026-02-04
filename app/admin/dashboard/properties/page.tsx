@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { FaHome, FaEnvelope, FaSignOutAlt, FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
+import { FaHome, FaEnvelope, FaSignOutAlt, FaPlus, FaEdit, FaTrash, FaTachometerAlt } from 'react-icons/fa'
 import type { Property } from '@/lib/supabase'
 import styles from './page.module.css'
 import dashStyles from '../page.module.css'
@@ -81,7 +81,7 @@ export default function PropertiesManagementPage() {
 
                 <nav className={dashStyles.nav}>
                     <Link href="/admin/dashboard" className={dashStyles.navItem}>
-                        <FaHome /> Dashboard
+                        <FaTachometerAlt /> Dashboard
                     </Link>
                     <Link href="/admin/dashboard/properties" className={dashStyles.navItemActive}>
                         <FaHome /> Properties

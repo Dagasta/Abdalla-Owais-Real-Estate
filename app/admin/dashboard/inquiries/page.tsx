@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { FaHome, FaEnvelope, FaSignOutAlt } from 'react-icons/fa'
+import { FaHome, FaEnvelope, FaSignOutAlt, FaTrash, FaTachometerAlt } from 'react-icons/fa'
 import type { Inquiry } from '@/lib/supabase'
 import styles from '../properties/page.module.css'
 import dashStyles from '../page.module.css'
@@ -38,6 +38,25 @@ export default function InquiriesPage() {
         }
     }
 
+    const handleDelete = async (id: string) => {
+        if (!window.confirm('Are you sure you want to delete this inquiry?')) return
+
+        try {
+            const { error } = await supabase
+                .from('inquiries')
+                .delete()
+                .eq('id', id)
+
+            if (error) throw error
+
+            setInquiries(prev => prev.filter(inq => inq.id !== id))
+            alert('Inquiry deleted successfully')
+        } catch (error) {
+            console.error('Error deleting inquiry:', error)
+            alert('Failed to delete inquiry')
+        }
+    }
+
     const handleLogout = async () => {
         await supabase.auth.signOut()
         router.push('/admin/login')
@@ -67,7 +86,7 @@ export default function InquiriesPage() {
 
                 <nav className={dashStyles.nav}>
                     <Link href="/admin/dashboard" className={dashStyles.navItem}>
-                        <FaHome /> Dashboard
+                        <FaTachometerAlt /> Dashboard
                     </Link>
                     <Link href="/admin/dashboard/properties" className={dashStyles.navItem}>
                         <FaHome /> Properties
@@ -102,6 +121,7 @@ export default function InquiriesPage() {
                                 <th>Message</th>
                                 <th>Date</th>
                                 <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,6 +154,15 @@ export default function InquiriesPage() {
                                             <span className={`${styles.badge} ${styles[inquiry.status]}`}>
                                                 {inquiry.status}
                                             </span>
+                                        </td>
+                                        <td>
+                                            <button
+                                                onClick={() => handleDelete(inquiry.id)}
+                                                className={styles.btnDelete}
+                                                title="Delete Inquiry"
+                                            >
+                                                <FaTrash />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
