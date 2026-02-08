@@ -60,6 +60,11 @@ CREATE POLICY "Authenticated users can view inquiries"
   ON inquiries FOR SELECT
   USING (auth.role() = 'authenticated');
 
+-- Only authenticated users (admin) can delete inquiries
+CREATE POLICY "Authenticated users can delete inquiries"
+  ON inquiries FOR DELETE
+  USING (auth.role() = 'authenticated');
+
 -- Function to update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$

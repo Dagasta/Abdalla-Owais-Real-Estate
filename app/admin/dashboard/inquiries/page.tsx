@@ -47,13 +47,16 @@ export default function InquiriesPage() {
                 .delete()
                 .eq('id', id)
 
-            if (error) throw error
+            if (error) {
+                console.error('Database deletion error:', error)
+                throw new Error(error.message)
+            }
 
             setInquiries(prev => prev.filter(inq => inq.id !== id))
             alert('Inquiry deleted successfully')
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error deleting inquiry:', error)
-            alert('Failed to delete inquiry')
+            alert(`Failed to delete inquiry: ${error.message || 'Unknown error'}`)
         }
     }
 
