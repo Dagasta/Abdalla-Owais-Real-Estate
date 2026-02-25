@@ -120,24 +120,50 @@ export default function HomePage() {
                     </div>
                 </section>
 
-                {/* Featured Properties */}
-                <section className="section">
+                {/* Properties for Sale */}
+                <section className="section" style={{ paddingBottom: '2rem' }}>
                     <div className="container">
                         <div className={styles.sectionHeader}>
-                            <h2>Featured Properties</h2>
+                            <h2>Properties for <span className="text-gradient">Sale</span></h2>
                             <p className="text-muted">
-                                Explore our handpicked selection of premium properties in Sharjah
+                                Discover premium villas, apartments, and floor plans for sale
                             </p>
                         </div>
-
-                        <FeaturedPropertiesClient />
-                        <div className={styles.viewAllButton}>
-                            <Link href="/properties" className="btn btn-primary">
-                                View All Properties
-                            </Link>
-                        </div>
+                        <FeaturedPropertiesClient type="buy" />
                     </div>
                 </section>
+
+                {/* Properties for Rent */}
+                <section className="section" style={{ paddingTop: '2rem' }}>
+                    <div className="container">
+                        <div className={styles.sectionHeader}>
+                            <h2>Properties for <span className="text-gradient">Rent</span></h2>
+                            <p className="text-muted">
+                                Find your next home or office space in prime locations
+                            </p>
+                        </div>
+                        <FeaturedPropertiesClient type="rent" />
+                    </div>
+                </section>
+
+                {/* Property Management */}
+                <section className="section" style={{ paddingTop: '2rem', background: 'rgba(0, 71, 255, 0.03)' }}>
+                    <div className="container">
+                        <div className={styles.sectionHeader}>
+                            <h2>Property <span className="text-gradient">Management</span></h2>
+                            <p className="text-muted">
+                                Professional management services for your investments
+                            </p>
+                        </div>
+                        <FeaturedPropertiesClient type="manage" />
+                    </div>
+                </section>
+
+                <div className={styles.viewAllButton} style={{ marginTop: '2rem', marginBottom: '4rem' }}>
+                    <Link href="/properties" className="btn btn-primary">
+                        View All Properties
+                    </Link>
+                </div>
 
                 {/* Testimonials Section */}
                 <Testimonials />

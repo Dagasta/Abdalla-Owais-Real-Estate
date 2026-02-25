@@ -5,7 +5,11 @@ import PropertyCard from '@/components/PropertyCard'
 import { supabase } from '@/lib/supabase'
 import type { Property } from '@/lib/supabase'
 
-export default function FeaturedPropertiesClient() {
+interface FeaturedPropertiesProps {
+    type?: 'buy' | 'rent' | 'manage'
+}
+
+export default function FeaturedPropertiesClient({ type }: FeaturedPropertiesProps) {
     const [properties, setProperties] = useState<Property[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -26,6 +30,10 @@ export default function FeaturedPropertiesClient() {
                 },
                 (payload) => {
                     console.log('Property change detected:', payload)
+                    const newProperty = payload.new as Property
+
+                    // If type is specified, only process if it matches
+                    if (type && newProperty && newProperty.type !== type) return
 
                     if (payload.eventType === 'INSERT') {
                         // Add new property to the list
@@ -51,10 +59,16 @@ export default function FeaturedPropertiesClient() {
 
     const fetchProperties = async () => {
         setLoading(true)
-        const { data } = await supabase
+        let query = supabase
             .from('properties')
             .select('*')
             .eq('status', 'available')
+
+        if (type) {
+            query = query.eq('type', type)
+        }
+
+        const { data } = await query
             .order('created_at', { ascending: false })
             .limit(6)
 
