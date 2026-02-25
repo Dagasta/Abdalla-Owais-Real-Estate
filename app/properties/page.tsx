@@ -5,7 +5,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import PropertyCard from '@/components/PropertyCard'
-import type { Property } from '@/lib/supabase'
+import { supabase, type Property } from '@/lib/supabase'
 import { FaFilter } from 'react-icons/fa'
 import { useSearchParams } from 'next/navigation'
 import styles from './page.module.css'
@@ -34,19 +34,36 @@ function PropertiesContent() {
     const fetchProperties = async () => {
         setLoading(true)
         try {
-            const params = new URLSearchParams()
-            if (filters.type) params.append('type', filters.type)
-            if (filters.minPrice) params.append('minPrice', filters.minPrice)
-            if (filters.maxPrice) params.append('maxPrice', filters.maxPrice)
-            if (filters.bedrooms) params.append('bedrooms', filters.bedrooms)
-            if (filters.search) params.append('search', filters.search)
+            let query = supabase
+                .from('properties')
+                .select('*')
+                .eq('status', 'available')
+                .order('created_at', { ascending: false })
 
-            const response = await fetch(`/api/properties?${params.toString()}`)
-            const data = await response.json()
-
-            if (data.success) {
-                setProperties(data.data)
+            if (filters.type) {
+                query = query.eq('type', filters.type)
             }
+
+            if (filters.bedrooms) {
+                query = query.eq('bedrooms', parseInt(filters.bedrooms))
+            }
+
+            if (filters.minPrice) {
+                query = query.gte('price', parseFloat(filters.minPrice))
+            }
+
+            if (filters.maxPrice) {
+                query = query.lte('price', parseFloat(filters.maxPrice))
+            }
+
+            if (filters.search) {
+                query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%,location.ilike.%${filters.search}%`)
+            }
+
+            const { data, error } = await query
+
+            if (error) throw error
+            if (data) setProperties(data)
         } catch (error) {
             console.error('Failed to fetch properties:', error)
         } finally {
