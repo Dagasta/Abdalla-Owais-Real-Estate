@@ -168,7 +168,7 @@ export default function NewPropertyPage() {
                         >
                             <option value="buy">For Sale</option>
                             <option value="rent">For Rent</option>
-                            <option value="manage">For Managing</option>
+                            <option value="manage">Management</option>
                         </select>
                     </div>
 
