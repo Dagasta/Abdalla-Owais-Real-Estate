@@ -1,7 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 interface InquiryEmailData {
   name: string
   email: string
@@ -11,6 +9,7 @@ interface InquiryEmailData {
 }
 
 export async function sendInquiryEmail(data: InquiryEmailData) {
+  const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder')
   const adminEmail = process.env.ADMIN_EMAIL || 'ghassanadil315@gmail.com'
 
   const emailHtml = `
