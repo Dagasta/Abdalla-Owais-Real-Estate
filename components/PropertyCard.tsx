@@ -39,7 +39,10 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={styles.image}
                 />
-                <div className={styles.badge}>
+                <div className={`${styles.badge} ${property.type === 'buy' ? styles.badgeBuy :
+                        property.type === 'rent' ? styles.badgeRent :
+                            styles.badgeManage
+                    }`}>
                     {property.type === 'buy' ? 'For Sale' : property.type === 'rent' ? 'For Rent' : 'Management'}
                 </div>
                 {property.status !== 'available' && (

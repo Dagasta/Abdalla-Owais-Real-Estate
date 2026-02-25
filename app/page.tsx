@@ -11,6 +11,8 @@ import { FaSearch, FaHome, FaHandshake, FaAward, FaUsers } from 'react-icons/fa'
 import styles from './page.module.css'
 import { motion } from 'framer-motion'
 
+import { useState } from 'react'
+
 const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -23,6 +25,32 @@ const staggerContainer = {
             staggerChildren: 0.1
         }
     }
+}
+
+// Smart Section that hides itself if no properties are found
+function PropertySection({ title, type, gradient, subtitle, background }: {
+    title: string,
+    type: 'buy' | 'rent' | 'manage',
+    gradient: string,
+    subtitle: string,
+    background?: string
+}) {
+    const [count, setCount] = useState<number | null>(null);
+
+    // If we've loaded and count is 0, don't render anything
+    if (count === 0) return null;
+
+    return (
+        <section className="section" style={{ background }}>
+            <div className="container">
+                <div className={styles.sectionHeader}>
+                    <h2><span className={styles.titleText}>{title.replace(gradient, '')}</span><span className="text-gradient">{gradient}</span></h2>
+                    <p className="text-muted">{subtitle}</p>
+                </div>
+                <FeaturedPropertiesClient type={type} onLoad={(c) => setCount(c)} />
+            </div>
+        </section>
+    );
 }
 
 export default function HomePage() {
@@ -117,13 +145,36 @@ export default function HomePage() {
                     </div>
                 </section>
 
-                {/* Featured Properties */}
-                <section className="section">
+                {/* Property Sections */}
+                <PropertySection
+                    title="Properties for Sale"
+                    type="buy"
+                    gradient="Sale"
+                    subtitle="Discover premium villas, apartments, and floor plans for sale"
+                />
+
+                <PropertySection
+                    title="Properties for Rent"
+                    type="rent"
+                    gradient="Rent"
+                    subtitle="Find your next home or office space in prime locations"
+                />
+
+                <PropertySection
+                    title="Property Management"
+                    type="manage"
+                    gradient="Management"
+                    subtitle="Professional management services for your investments"
+                    background="rgba(0, 71, 255, 0.03)"
+                />
+
+                {/* Recently Added Section (Fallback/All) */}
+                <section className="section" style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                     <div className="container">
                         <div className={styles.sectionHeader}>
-                            <h2>Featured Properties</h2>
+                            <h2>Recently <span className="text-gradient">Added</span></h2>
                             <p className="text-muted">
-                                Explore our handpicked selection of premium properties in Sharjah
+                                Browse our newest listings across all categories
                             </p>
                         </div>
 

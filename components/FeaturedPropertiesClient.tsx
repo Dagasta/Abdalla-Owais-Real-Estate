@@ -7,9 +7,10 @@ import type { Property } from '@/lib/supabase'
 
 interface FeaturedPropertiesProps {
     type?: 'buy' | 'rent' | 'manage'
+    onLoad?: (count: number) => void
 }
 
-export default function FeaturedPropertiesClient({ type }: FeaturedPropertiesProps) {
+export default function FeaturedPropertiesClient({ type, onLoad }: FeaturedPropertiesProps) {
     const [properties, setProperties] = useState<Property[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -74,6 +75,9 @@ export default function FeaturedPropertiesClient({ type }: FeaturedPropertiesPro
 
         if (data) {
             setProperties(data)
+            if (onLoad) onLoad(data.length)
+        } else {
+            if (onLoad) onLoad(0)
         }
         setLoading(false)
     }
@@ -88,11 +92,7 @@ export default function FeaturedPropertiesClient({ type }: FeaturedPropertiesPro
     }
 
     if (properties.length === 0) {
-        return (
-            <div style={{ textAlign: 'center', padding: '3rem' }}>
-                <p>No properties available at the moment. Check back soon!</p>
-            </div>
-        )
+        return null
     }
 
     return (
