@@ -7,18 +7,26 @@ import WhatsAppButton from '@/components/WhatsAppButton'
 import PropertyCard from '@/components/PropertyCard'
 import type { Property } from '@/lib/supabase'
 import { FaFilter } from 'react-icons/fa'
+import { useSearchParams } from 'next/navigation'
 import styles from './page.module.css'
 
 export default function PropertiesPage() {
+    const searchParams = useSearchParams()
     const [properties, setProperties] = useState<Property[]>([])
     const [loading, setLoading] = useState(true)
     const [filters, setFilters] = useState({
-        type: '',
+        type: searchParams.get('type') || '',
         minPrice: '',
         maxPrice: '',
         bedrooms: '',
         search: '',
     })
+
+    useEffect(() => {
+        // Sync filter with URL if it changes (e.g. clicking a header link while on this page)
+        const type = searchParams.get('type') || ''
+        setFilters(prev => ({ ...prev, type }))
+    }, [searchParams])
 
     useEffect(() => {
         fetchProperties()

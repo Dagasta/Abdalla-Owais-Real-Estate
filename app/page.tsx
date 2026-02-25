@@ -159,6 +159,19 @@ export default function HomePage() {
                     </div>
                 </section>
 
+                {/* All properties (Recently Added) */}
+                <section className="section" style={{ paddingTop: '4rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div className="container">
+                        <div className={styles.sectionHeader}>
+                            <h2>Recently <span className="text-gradient">Added</span></h2>
+                            <p className="text-muted">
+                                Browse our newest listings across all categories
+                            </p>
+                        </div>
+                        <FeaturedPropertiesClient />
+                    </div>
+                </section>
+
                 <div className={styles.viewAllButton} style={{ marginTop: '2rem', marginBottom: '4rem' }}>
                     <Link href="/properties" className="btn btn-primary">
                         View All Properties
