@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: '#0047FF',
+}
+
 export const metadata: Metadata = {
     title: 'Abdalla Alowais Real Estate | Premium Properties in Sharjah, UAE',
     description: 'Discover your dream property in Sharjah with Abdalla Alowais Real Estate. Browse luxury apartments, villas, and commercial spaces for sale and rent. Expert guidance, premium listings, and trusted service in the UAE real estate market.',
     keywords: 'real estate Sharjah, properties UAE, apartments for sale Sharjah, villas for rent Sharjah, Abdalla Alowais, UAE real estate, Sharjah properties, luxury apartments UAE, commercial spaces Sharjah, property investment UAE',
     authors: [{ name: 'Abdalla Alowais Real Estate' }],
-    viewport: 'width=device-width, initial-scale=1',
-    themeColor: '#0047FF',
     openGraph: {
         title: 'Abdalla Alowais Real Estate | Premium Properties in Sharjah',
         description: 'Your trusted real estate partner in Sharjah, UAE. Find luxury apartments, villas, and commercial spaces.',
