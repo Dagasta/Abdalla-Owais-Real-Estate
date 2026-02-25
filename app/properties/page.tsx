@@ -96,6 +96,7 @@ export default function PropertiesPage() {
                                     <option value="">All Types</option>
                                     <option value="buy">For Sale</option>
                                     <option value="rent">For Rent</option>
+                                    <option value="manage">Management</option>
                                 </select>
                             </div>
 

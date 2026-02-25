@@ -64,8 +64,11 @@ export default function HomePage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6, duration: 0.8 }}
                             >
-                                <Link href="/properties?type=buy" className="btn btn-primary">
-                                    <FaSearch /> Browse Properties
+                                <Link href="/properties" className="btn btn-primary">
+                                    <FaSearch /> All Properties
+                                </Link>
+                                <Link href="/properties?type=manage" className="btn btn-outline" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'white' }}>
+                                    Property Management
                                 </Link>
                                 <Link href="/contact" className="btn btn-outline">
                                     Contact Us

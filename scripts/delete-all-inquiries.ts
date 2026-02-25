@@ -1,4 +1,4 @@
-import { supabaseAdmin } from './lib/supabase-server';
+import { supabaseAdmin } from '../lib/supabase-server';
 
 async function deleteAllInquiries() {
     console.log('Starting deletion of all inquiries...');

@@ -31,6 +31,7 @@ export default function Header() {
                         <li><Link href="/properties" onClick={toggleMenu}>Properties</Link></li>
                         <li><Link href="/properties?type=buy" onClick={toggleMenu}>Buy</Link></li>
                         <li><Link href="/properties?type=rent" onClick={toggleMenu}>Rent</Link></li>
+                        <li><Link href="/properties?type=manage" onClick={toggleMenu}>Management</Link></li>
                         <li><Link href="/contact" onClick={toggleMenu}>Contact</Link></li>
                     </ul>
 
